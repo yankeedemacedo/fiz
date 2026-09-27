@@ -1,6 +1,145 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-green-500: oklch(89.7% 0.196 126.665);
-  --color-green-700: oklch(45.3% 0.124 130.933);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas,
+    monospace;
+
+  /* Pure black/white scale — no grays in UI chrome. */
+  --color-primary-50: #ffffff;
+  --color-primary-100: #ffffff;
+  --color-primary-200: #ffffff;
+  --color-primary-300: #ffffff;
+  --color-primary-400: #ffffff;
+  --color-primary-500: #000000;
+  --color-primary-600: #000000;
+  --color-primary-700: #000000;
+  --color-primary-800: #000000;
+  --color-primary-900: #000000;
+  --color-primary-950: #000000;
+
+  /* Semantic surfaces mapped to CSS vars (light/dark switch below). */
+  --color-background: var(--fiz-bg);
+  --color-surface: var(--fiz-surface);
+  --color-surface-2: var(--fiz-surface-2);
+  --color-border: var(--fiz-border);
+  --color-text: var(--fiz-text);
+  --color-text-muted: var(--fiz-text-muted);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  --shadow-elevation-1: 0 1px 2px rgb(0 0 0 / 0.06);
+  --shadow-elevation-2:
+    0 1px 2px rgb(0 0 0 / 0.06), 0 4px 12px rgb(0 0 0 / 0.08);
+  --shadow-elevation-3:
+    0 2px 4px rgb(0 0 0 / 0.08), 0 12px 32px rgb(0 0 0 / 0.14);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 350ms;
+
+  --animate-rise: rise var(--duration-base) var(--ease-out-expo) both;
+  --animate-slide-in: slide-in var(--duration-base) var(--ease-out-expo) both;
+}
+
+:root {
+  color-scheme: light;
+  --fiz-bg: #ffffff;
+  --fiz-surface: #ffffff;
+  --fiz-surface-2: #fafafa;
+  --fiz-border: #000000;
+  --fiz-text: #000000;
+  --fiz-text-muted: #666666;
+  --fiz-ring: #000000;
+}
+
+.dark {
+  color-scheme: dark;
+  --fiz-bg: #000000;
+  --fiz-surface: #000000;
+  --fiz-surface-2: #111111;
+  --fiz-border: #ffffff;
+  --fiz-text: #ffffff;
+  --fiz-text-muted: #999999;
+  --fiz-ring: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--fiz-bg);
+  color: var(--fiz-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  transition:
+    background-color var(--duration-base) var(--ease-out-expo),
+    color var(--duration-base) var(--ease-out-expo);
+}
+
+::selection {
+  background: rgb(0 0 0 / 0.25);
+}
+
+:focus-visible {
+  outline: 2px solid var(--fiz-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Subtle scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--fiz-border) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--fiz-border);
+  border-radius: 9999px;
+}
+
+/* Keyframes */
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+@keyframes slide-in {
+  from {
+    opacity: 0.5;
+    translate: 2rem 0;
+  }
+}
+
+/* Utility: hide scrollbar but keep scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" id="html-root">
+<html lang="pt-BR" id="html-root">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/./src/assets/icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="FIZ — gerenciador de tarefas moderno, rápido e minimalista."
+    />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <title>FIZ - Gerenciador de Tarefas</title>
+    <script>
+      try {
+        var t = localStorage.getItem("fiz-theme");
+        var dark;
+        if (t === "dark") dark = true;
+        else if (t === "light") dark = false;
+        else {
+          var legacy = localStorage.getItem("darkMode");
+          if (legacy !== null) {
+            try { dark = JSON.parse(legacy) === true; } catch (e) { dark = false; }
+          } else {
+            dark = matchMedia("(prefers-color-scheme: dark)").matches;
+          }
+        }
+        document.documentElement.classList.toggle("dark", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
